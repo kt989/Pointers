@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <time.h>
 using namespace std;
 
@@ -15,14 +15,14 @@ void main()
 	const int n=10;
 	int arr[n] = {};
 	FillRand(arr, n);
-	cout << "Èñõîäíûé ìàññèâ: " << endl << endl;
+	cout << "Ð˜ÑÑ…Ð¾Ð´Ð½Ñ‹Ð¹ Ð¼Ð°ÑÑÐ¸Ð²: " << endl << endl;
 	Print(arr, n);
 	int n_even = EVEN_COUNT(arr, n);
 	int n_odd = ODD_COUNT(arr, n);
 	int* even = new int[n_even];
 	int* odd = new int[n_odd];
 
-	//FillRand_EVEN_ODD(arr, n, even, n_even, odd, n_odd);// ïî÷åìó-òî ÷åðåç ôóíêöèþ íå ðàáîòàåò: ïèøåò, ÷òî even è odd identifier not found
+	//FillRand_EVEN_ODD(arr, n, even, n_even, odd, n_odd);// Ð¿Ð¾Ñ‡ÐµÐ¼Ñƒ-Ñ‚Ð¾ Ñ‡ÐµÑ€ÐµÐ· Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ Ð½Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚: Ð¿Ð¸ÑˆÐµÑ‚, Ñ‡Ñ‚Ð¾ even Ð¸ odd identifier not found
 	int j = 0, k = 0;
 	for (int i = 0; i < n; i++)
 	{
@@ -37,9 +37,9 @@ void main()
 			k++;
 		}
 	}
-	cout << endl << "×åòíûå ýëåìåíòû ìàññèâà: " << endl << endl;
+	cout << endl << "Ð§ÐµÑ‚Ð½Ñ‹Ðµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ñ‹ Ð¼Ð°ÑÑÐ¸Ð²Ð°: " << endl << endl;
 	Print(even, n_even);
-	cout << endl << "Íå÷åòíûå ýëåìåíòû ìàññèâà: " << endl << endl;
+	cout << endl << "ÐÐµÑ‡ÐµÑ‚Ð½Ñ‹Ðµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ñ‹ Ð¼Ð°ÑÑÐ¸Ð²Ð°: " << endl << endl;
 	Print(odd, n_odd);
 	delete[] even;
 	delete[] odd;
