@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <time.h>
 using namespace std;
 
@@ -16,26 +16,26 @@ void main()
 	setlocale(LC_ALL, "");
 	srand(time(NULL));
 	int n;
-	cout << "Введите размер массива: "; cin >> n;
+	cout << "Р’РІРµРґРёС‚Рµ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°: "; cin >> n;
 	int* arr = new int[n];
 	FillRand(arr, n);
 	Print(arr, n);
-	//Прежде, чем написать вот так
+	//РџСЂРµР¶РґРµ, С‡РµРј РЅР°РїРёСЃР°С‚СЊ РІРѕС‚ С‚Р°Рє
 	//arr[n] = 123;
-	//нужно переопределить память
+	//РЅСѓР¶РЅРѕ РїРµСЂРµРѕРїСЂРµРґРµР»РёС‚СЊ РїР°РјСЏС‚СЊ
 	//n++;
 	int new_element;
-	cout << endl<<"Введите значение, которое требуется добавить в конец массива: "; cin >> new_element;
+	cout << endl<<"Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С‚СЂРµР±СѓРµС‚СЃСЏ РґРѕР±Р°РІРёС‚СЊ РІ РєРѕРЅРµС† РјР°СЃСЃРёРІР°: "; cin >> new_element;
 	push_back(arr, n, new_element);
-	cout << endl << "Введите значение, которое требуется добавить в начало массива: "; cin >> new_element;
+	cout << endl << "Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С‚СЂРµР±СѓРµС‚СЃСЏ РґРѕР±Р°РІРёС‚СЊ РІ РЅР°С‡Р°Р»Рѕ РјР°СЃСЃРёРІР°: "; cin >> new_element;
 	push_front(arr, n, new_element);
 	int numer_element;
-	cout << endl << "Введите значение, которое требуется добавить в массив: "; cin >> new_element;
-	cout << endl << "Введите номер элемента, после которого требуется добавить новый элемент в массив: "; cin >> numer_element;
+	cout << endl << "Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ С‚СЂРµР±СѓРµС‚СЃСЏ РґРѕР±Р°РІРёС‚СЊ РІ РјР°СЃСЃРёРІ: "; cin >> new_element;
+	cout << endl << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЌР»РµРјРµРЅС‚Р°, РїРѕСЃР»Рµ РєРѕС‚РѕСЂРѕРіРѕ С‚СЂРµР±СѓРµС‚СЃСЏ РґРѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ СЌР»РµРјРµРЅС‚ РІ РјР°СЃСЃРёРІ: "; cin >> numer_element;
 	insert (arr, n, new_element, numer_element);
 	pop_back(arr, n);
 	pop_front(arr, n);
-	cout << endl << "Введите номер элемента, который требуется удалить: "; cin >> numer_element;
+	cout << endl << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЌР»РµРјРµРЅС‚Р°, РєРѕС‚РѕСЂС‹Р№ С‚СЂРµР±СѓРµС‚СЃСЏ СѓРґР°Р»РёС‚СЊ: "; cin >> numer_element;
 	erase(arr, n, numer_element);
 	delete[] arr;
 
@@ -68,7 +68,7 @@ void push_back(int arr[], int n, int new_element)
 		arr_buffer[i] = arr[i];
 	}
 	arr_buffer[n] = new_element;
-	cout << endl<<"Элемент добавлен в конец массива: " << endl << endl;
+	cout << endl<<"Р­Р»РµРјРµРЅС‚ РґРѕР±Р°РІР»РµРЅ РІ РєРѕРЅРµС† РјР°СЃСЃРёРІР°: " << endl << endl;
 	Print(arr_buffer, m);
 	delete[] arr_buffer;
 }
@@ -81,7 +81,7 @@ void push_front(int arr[], int n, int new_element)
 		arr_buffer[i] = arr[i-1];
 	}
 	arr_buffer[0] = new_element;
-	cout << endl << "Элемент добавлен в начало массива: " << endl << endl;
+	cout << endl << "Р­Р»РµРјРµРЅС‚ РґРѕР±Р°РІР»РµРЅ РІ РЅР°С‡Р°Р»Рѕ РјР°СЃСЃРёРІР°: " << endl << endl;
 	Print(arr_buffer, m);
 	delete[] arr_buffer;
 }
@@ -100,7 +100,7 @@ void insert(int arr[], int n, int new_element, int numer_element)
 	{
 		arr_buffer[i] = arr[i-1];
 	}
-	cout << endl << "Элемент добавлен в массив: " << endl << endl;
+	cout << endl << "Р­Р»РµРјРµРЅС‚ РґРѕР±Р°РІР»РµРЅ РІ РјР°СЃСЃРёРІ: " << endl << endl;
 	Print(arr_buffer, m);
 	delete[] arr_buffer;
 }
@@ -113,7 +113,7 @@ void pop_back(int arr[], int n)
 	{
 		arr_buffer[i] = arr[i];
 	}
-	cout << endl << "Элемент удален с конца массива: " << endl << endl;
+	cout << endl << "Р­Р»РµРјРµРЅС‚ СѓРґР°Р»РµРЅ СЃ РєРѕРЅС†Р° РјР°СЃСЃРёРІР°: " << endl << endl;
 	Print(arr_buffer, m);
 	delete[] arr_buffer;
 }
@@ -126,7 +126,7 @@ void pop_front(int arr[], int n)
 	{
 		arr_buffer[i-1] = arr[i];
 	}
-	cout << endl << "Элемент удален с начала массива: " << endl << endl;
+	cout << endl << "Р­Р»РµРјРµРЅС‚ СѓРґР°Р»РµРЅ СЃ РЅР°С‡Р°Р»Р° РјР°СЃСЃРёРІР°: " << endl << endl;
 	Print(arr_buffer, m);
 	delete[] arr_buffer;
 }
@@ -143,7 +143,7 @@ void erase(int arr[], int n, int numer_element)
 	{
 		arr_buffer[i-1] = arr[i];
 	}
-	cout << endl << "Элемент удален с начала массива: " << endl << endl;
+	cout << endl << "Р­Р»РµРјРµРЅС‚ СѓРґР°Р»РµРЅ СЃ РЅР°С‡Р°Р»Р° РјР°СЃСЃРёРІР°: " << endl << endl;
 	Print(arr_buffer, m);
 	delete[] arr_buffer;
 }
