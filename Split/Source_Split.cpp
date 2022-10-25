@@ -15,12 +15,13 @@ void main()
 	const int n=10;
 	int arr[n] = {};
 	FillRand(arr, n);
+	cout << "Исходный массив: " << endl << endl;
 	Print(arr, n);
 	int n_even = EVEN_COUNT(arr, n);
 	int n_odd = ODD_COUNT(arr, n);
 	int* even = new int[n_even];
 	int* odd = new int[n_odd];
-	FillRand(even, n_even);
+
 	//FillRand_EVEN_ODD(arr, n, even, n_even, odd, n_odd);// почему-то через функцию не работает: пишет, что even и odd identifier not found
 	int j = 0, k = 0;
 	for (int i = 0; i < n; i++)
@@ -36,8 +37,12 @@ void main()
 			k++;
 		}
 	}
+	cout << endl << "Четные элементы массива: " << endl << endl;
 	Print(even, n_even);
+	cout << endl << "Нечетные элементы массива: " << endl << endl;
 	Print(odd, n_odd);
+	delete[] even;
+	delete[] odd;
 	}
 
 template <typename T> void FillRand(T arr[], const int n)
@@ -95,4 +100,5 @@ template <typename T> int ODD_COUNT(T arr[], const int n)
 		}
 	}
 }*/
+
 
