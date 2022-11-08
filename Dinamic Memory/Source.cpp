@@ -1,20 +1,28 @@
 ﻿#include <iostream>
 #include <time.h>
 using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
+
+//#define DYNAMIC_MEMORY_1
+#define DYNAMIC_MEMORY_2
 
 void FillRand(int arr[], int n);
 void Print(int arr[], int n);
-void push_back(int arr[], int n, int new_element);
-void push_front(int arr[], int n, int new_element);
-void insert (int arr[], int n, int new_element, int numer_element);
-void pop_back(int arr[], int n);
-void pop_front(int arr[], int n);
-void erase(int arr[], int n, int numer_element);
+
+int* push_back(int arr[], int& n, int new_element);
+int* push_front(int arr[], int& n, int new_element);
+int* insert (int arr[], int& n, int new_element, int numer_element);
+int* pop_back(int arr[], int& n);
+int* pop_front(int arr[], int& n);
+int* erase(int arr[], int& n, int numer_element);
 
 void main()
 {
 	setlocale(LC_ALL, "");
 	srand(time(NULL));
+#ifdef DYNAMIC_MEMORY_1
 	int n;
 	cout << "Введите размер массива: "; cin >> n;
 	int* arr = new int[n];
@@ -26,19 +34,83 @@ void main()
 	//n++;
 	int new_element;
 	cout << endl<<"Введите значение, которое требуется добавить в конец массива: "; cin >> new_element;
-	push_back(arr, n, new_element);
+	arr=push_back(arr, n, new_element);
+	cout << endl << "Элемент добавлен в конец массива: " << endl << endl;
+	Print(arr, n);
+
 	cout << endl << "Введите значение, которое требуется добавить в начало массива: "; cin >> new_element;
-	push_front(arr, n, new_element);
+	arr=push_front(arr, n, new_element);
+	cout << endl << "Элемент добавлен в начало массива: " << endl << endl;
+	Print(arr, n);
+	
+
 	int numer_element;
 	cout << endl << "Введите значение, которое требуется добавить в массив: "; cin >> new_element;
 	cout << endl << "Введите номер элемента, после которого требуется добавить новый элемент в массив: "; cin >> numer_element;
-	insert (arr, n, new_element, numer_element);
-	pop_back(arr, n);
-	pop_front(arr, n);
-	cout << endl << "Введите номер элемента, который требуется удалить: "; cin >> numer_element;
-	erase(arr, n, numer_element);
-	delete[] arr;
+	arr=insert (arr, n, new_element, numer_element);
+	cout << endl << "Элемент добавлен в массив: " << endl << endl;
+	Print(arr, n);
 
+	arr=pop_back(arr, n);
+	cout << endl << "Элемент удален с конца массива: " << endl << endl;
+	Print(arr, n);
+
+	arr=pop_front(arr, n);
+	cout << endl << "Элемент удален с начала массива: " << endl << endl;
+	Print(arr, n);
+
+	cout << endl << "Введите номер элемента, который требуется удалить: "; cin >> numer_element;
+	arr=erase(arr, n, numer_element);
+	cout << endl << "Элемент удален из массива: " << endl << endl;
+	Print(arr, n);
+	
+#endif
+
+#ifdef DYNAMIC_MEMORY_2
+	int rows;
+	int cols;
+	cout << "Введите количество строк: "; cin >> rows;
+	cout << "\nВведите количество элементов строки: "; cin >> cols;
+
+
+	///////////////////////////////////////////////////////////////
+	//////////Объявление двумерного динамического массива /////////
+	///////////////////////////////////////////////////////////////
+
+	//1) Выделяем память под массив указателей
+	int** arr = new int* [rows];
+
+	//2) Создаем строки двумерного массива
+	for (int i = 0; i < rows;i++)
+	{
+		arr[i] = new int [cols] {};
+	}
+
+	for (int i = 0; i < rows;i++)
+	{
+		for (int j = 0; j < cols;j++)
+		{
+			arr[i][j] = rand() % 100;
+		}
+	}
+
+	for (int i = 0; i < rows;i++)
+	{
+		for (int j = 0; j < cols;j++)
+		{
+			cout << arr[i][j] << "\t";
+		}
+		cout << endl;
+	}
+
+	///////////////////////////////////////////////////////////////
+    //////////Удаление двумерного динамического массива ///////////
+    ///////////////////////////////////////////////////////////////
+
+	//1)Удаляем строки двумерного динамического массива
+
+
+#endif // DYNAMIC_MEMORY_2
 
 }
 
@@ -59,37 +131,37 @@ void Print(int arr[], int n)
 	}
 }
 
-void push_back(int arr[], int n, int new_element)
+int* push_back(int arr[], int& n, int new_element)
 {
-	int m = n+1;
-	int* arr_buffer = new int[m];
+	int* arr_buffer = new int[n+1]{};
 	for (int i = 0; i < n; i++)
 	{
 		arr_buffer[i] = arr[i];
 	}
-	arr_buffer[n] = new_element;
-	cout << endl<<"Элемент добавлен в конец массива: " << endl << endl;
-	Print(arr_buffer, m);
-	delete[] arr_buffer;
+	delete[] arr;
+	arr = arr_buffer;
+	arr[n] = new_element;
+	n++;
+	return arr;
 }
-void push_front(int arr[], int n, int new_element)
+int* push_front(int arr[], int& n, int new_element)
 {
-	int m = n + 1;
-	int* arr_buffer = new int[m];
+	int* arr_buffer = new int[n + 1];
 	for (int i = 1; i <= n; i++)
 	{
-		arr_buffer[i] = arr[i-1];
+		arr_buffer[i] = arr[i - 1];
 	}
+	delete[] arr;
 	arr_buffer[0] = new_element;
-	cout << endl << "Элемент добавлен в начало массива: " << endl << endl;
-	Print(arr_buffer, m);
-	delete[] arr_buffer;
+	arr = arr_buffer;
+	n++;
+	return arr;
 }
 
-void insert(int arr[], int n, int new_element, int numer_element)
+int* insert(int arr[], int& n, int new_element, int numer_element)
 {
-	int m = n + 1;
-	int* arr_buffer = new int[m];
+	
+	int* arr_buffer = new int[n+1];
 	for (int i = 0; i < numer_element; i++)
 	{
 		arr_buffer[i] = arr[i];
@@ -100,41 +172,41 @@ void insert(int arr[], int n, int new_element, int numer_element)
 	{
 		arr_buffer[i] = arr[i-1];
 	}
-	cout << endl << "Элемент добавлен в массив: " << endl << endl;
-	Print(arr_buffer, m);
-	delete[] arr_buffer;
+	delete[] arr;
+	arr = arr_buffer;
+	n++;
+	return arr;
 }
 
-void pop_back(int arr[], int n)
+int* pop_back(int arr[], int& n)
 {
-	int m = n-1;
-	int* arr_buffer = new int[m];
-	for (int i = 0; i < m;i++)
+	int* arr_buffer = new int[n-1];
+	for (int i = 0; i < n-1;i++)
 	{
 		arr_buffer[i] = arr[i];
 	}
-	cout << endl << "Элемент удален с конца массива: " << endl << endl;
-	Print(arr_buffer, m);
-	delete[] arr_buffer;
+	delete[] arr;
+	arr = arr_buffer;
+	n--;
+	return arr;
 }
 
-void pop_front(int arr[], int n)
+int* pop_front(int arr[], int& n)
 {
-	int m = n - 1;
-	int* arr_buffer = new int[m];
+	int* arr_buffer = new int[n-1];
 	for (int i = 1; i < n;i++)
 	{
 		arr_buffer[i-1] = arr[i];
 	}
-	cout << endl << "Элемент удален с начала массива: " << endl << endl;
-	Print(arr_buffer, m);
-	delete[] arr_buffer;
+	delete[] arr;
+	arr = arr_buffer;
+	n--;
+	return arr;
 }
 
-void erase(int arr[], int n, int numer_element)
+int* erase(int arr[], int& n, int numer_element)
 {
-	int m = n - 1;
-	int* arr_buffer = new int[m];
+	int* arr_buffer = new int[n-1];
 	for (int i = 0; i < numer_element-1;i++)
 	{
 		arr_buffer[i] = arr[i];
@@ -143,7 +215,8 @@ void erase(int arr[], int n, int numer_element)
 	{
 		arr_buffer[i-1] = arr[i];
 	}
-	cout << endl << "Элемент удален с начала массива: " << endl << endl;
-	Print(arr_buffer, m);
-	delete[] arr_buffer;
+	delete[] arr;
+	arr = arr_buffer;
+	n--;
+	return arr;
 }

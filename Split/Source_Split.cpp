@@ -2,6 +2,7 @@
 #include <time.h>
 using namespace std;
 
+
 template <typename T> void FillRand(T arr[], const int n);
 template <typename T> void Print (T arr[], const int n);
 template <typename T> int EVEN_COUNT(T arr[], const int n);
@@ -12,6 +13,9 @@ void main()
 	{
 	setlocale(LC_ALL, "");
 	srand(time(NULL));
+	
+
+
 	const int n=10;
 	int arr[n] = {};
 	FillRand(arr, n);
@@ -43,7 +47,9 @@ void main()
 	Print(odd, n_odd);
 	delete[] even;
 	delete[] odd;
-	}
+
+
+}
 
 template <typename T> void FillRand(T arr[], const int n)
 {
