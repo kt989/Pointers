@@ -8,8 +8,8 @@ using std::endl;
 //#define DYNAMIC_MEMORY_1
 #define DYNAMIC_MEMORY_2
 
-int** Allocate(const int rows, const int cols);
-void FillRand(int arr[], int n, int minRand = 0, int maxRand=100);
+template <typename T>T** Allocate(const int rows, const int cols);
+template <typename T> void FillRand(T arr[], int n, int minRand = 0, int maxRand=100);
 template <typename T> void Print(T arr[], int n);
 
 template <typename T>T* push_back(T arr[], int& n, T new_element);
@@ -30,7 +30,7 @@ template <typename T> T** push_col_front(T** arr, int rows, int& cols);
 template <typename T> T** pop_col_front(T** arr, int rows, int& cols);
 
 
-void Clear(int** arr, const int rows);
+template <typename T> void Clear(T** arr, const int rows);
 
 void main()
 {
@@ -90,7 +90,9 @@ void main()
 	///////////////////////////////////////////////////////////////
 	//////////Объявление двумерного динамического массива /////////
 	///////////////////////////////////////////////////////////////
-	int** arr = Allocate(rows, cols);
+	
+	typedef float DataType;
+	DataType** arr = Allocate<DataType>(rows, cols);
 	
 
 	for (int i = 0; i < rows;i++)
@@ -156,26 +158,26 @@ void main()
 
 }
 
-int** Allocate(const int rows, const int cols)
+template <typename T>T** Allocate(const int rows, const int cols)
 {
 	//1) Выделяем память под массив указателей
-	int** arr = new int* [rows];
+	T** arr = new T* [rows];
 
 	//2) Создаем строки двумерного массива
 	for (int i = 0; i < rows;i++)
 	{
-		arr[i] = new int [cols] {};
+		arr[i] = new T [cols] {};
 	}
 	return arr;
 }
 
 
 
-void FillRand(int arr[], int n, int minRand, int maxRand)
+template <typename T> void FillRand(T arr[], int n, int minRand, int maxRand)
 {
 	for (int i = 0; i < n; i++)
 	{
-		*(arr + i) = rand() % (maxRand-minRand)+minRand;
+		*(arr + i) = double(rand() % 10000)/100;
 	}
 }
 
@@ -261,9 +263,9 @@ template <typename T>T* pop_front(T arr[], int& n)
 	return arr;
 }
 
-int* erase(int arr[], int& n, int numer_element)
+template <typename T>T* erase(T arr[], int& n, int numer_element)
 {
-	int* arr_buffer = new int[n-1];
+	T* arr_buffer = new T[n-1];
 	for (int i = 0; i < numer_element-1;i++)
 	{
 		arr_buffer[i] = arr[i];
@@ -278,7 +280,7 @@ int* erase(int arr[], int& n, int numer_element)
 	return arr;
 }
 
-void Clear(int** arr, const int rows)
+template <typename T> void Clear(T** arr, const int rows)
 {
 	//1)Удаляем строки двумерного динамического массива
 	for (int i = 0; i < rows; i++)
@@ -317,7 +319,7 @@ template <typename T> T** push_row_back(T** arr, int& rows, int cols)
 	arr=buffer;
 
 	//5)Теперь в массиве указателей есть место для добавления строки в конец массива
-	arr[rows] = new int[cols] {};
+	arr[rows] = new T[cols] {};
 
 	//6)После добавления строки в массив количество строк увеличивается на 1:
 	rows++;
@@ -373,7 +375,7 @@ template <typename T> void pop_col_back(T** arr, int rows, int& cols)
 template <typename T> T** push_row_front(T** arr, int& rows, int cols)
 {
 	T** buffer = new T* [rows + 1]{};
-	buffer[0] = new int [cols] {};
+	buffer[0] = new T [cols] {};
 	for (int i = 0; i < rows; i++)
 	{
 		buffer[i + 1] = arr[i];
