@@ -4,6 +4,7 @@ using namespace std;
 
 void FillRand(int** arr, int rows, int cols);
 void Print(int** arr, int rows, int cols);
+void Delete_arr(int** arr, int rows);
 
 void main()
 {
@@ -12,13 +13,14 @@ void main()
 	int rows, cols;
 	cout << "¬ведите количество строк массива: "; cin >> rows;
 	cout << "¬ведите количество элементов в строке массива: "; cin >> cols;
-	int** arr = new int*{};
+	int** arr = new int*[rows];
 	for (int i = 0; i < rows;i++)
 	{
 		*(arr + i) = new int [cols] {};
 	}
 	FillRand(arr, rows, cols);
 	Print(arr, rows, cols);
+	Delete_arr(arr, rows);
 }
 
 void FillRand(int** arr, int rows, int cols)
@@ -43,4 +45,13 @@ void Print(int** arr, int rows, int cols)
 		}
 		cout << endl;
 	}
+}
+
+void Delete_arr(int** arr, int rows)
+{
+	for (int i = 0; i < rows; i++)
+	{
+		delete[] arr[i];
+	}
+	delete[] arr;
 }
