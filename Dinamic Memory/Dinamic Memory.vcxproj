@@ -139,7 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Change_Arrays.cpp" />
+    <ClCompile Include="Create_Clean_arrays.cpp" />
     <ClCompile Include="Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Change_Arrays.h" />
+    <ClInclude Include="Create_Clean_arrays.h" />
+    <ClInclude Include="include_files.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
