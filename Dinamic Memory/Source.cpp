@@ -29,6 +29,10 @@ template <typename T> T** pop_row_front(T** arr, int& rows, int cols);
 template <typename T> T** push_col_front(T** arr, int rows, int& cols);
 template <typename T> T** pop_col_front(T** arr, int rows, int& cols);
 
+template <typename T> T** push_row_insert(T** arr, int& rows, int cols, int numer_row);
+template <typename T> T** pop_row_insert(T** arr, int& rows, int cols, int numer_row);
+
+
 
 template <typename T> void Clear(T** arr, const int rows);
 
@@ -91,7 +95,7 @@ void main()
 	//////////Объявление двумерного динамического массива /////////
 	///////////////////////////////////////////////////////////////
 	
-	typedef float DataType;
+	typedef int DataType;
 	DataType** arr = Allocate<DataType>(rows, cols);
 	
 
@@ -146,6 +150,19 @@ void main()
 
 	cout << "pop_col_front: \n";
 	arr = pop_col_front(arr, rows, cols);
+	Print(arr, rows, cols);
+
+	cout << "push_row_insert: \n";
+	int numer_row;
+	cout << "Введите номер строки, перед которой требуется добавить новую строку: "; cin >> numer_row;
+	cout << endl;
+	arr = push_row_insert(arr, rows, cols, numer_row);
+	Print(arr, rows, cols);
+
+	cout << "pop_row_insert: \n";
+	cout << "Введите номер строки, которую требуется удалить: "; cin >> numer_row;
+	cout << endl;
+	arr = pop_row_insert(arr, rows, cols, numer_row);
 	Print(arr, rows, cols);
 
 	Clear(arr, rows);
@@ -429,5 +446,39 @@ template <typename T> T** pop_col_front(T** arr, int rows, int& cols)
 		arr[i] = buffer;
 	}
 	cols--;
+	return arr;
+}
+
+template <typename T> T** push_row_insert(T** arr, int& rows, int cols, int numer_row)
+{
+	T** buffer = new T* [rows + 1]{};
+	for (int i = 0; i < numer_row; i++)
+	{
+		buffer[i] = arr[i];
+	}
+	for (int i = (numer_row + 1); i <= rows; i++)
+	{
+		buffer[i] = arr[i-1];
+	}
+	delete[] arr;
+	rows++;
+	arr = buffer;
+	return arr;
+}
+
+template <typename T> T** pop_row_insert(T** arr, int& rows, int cols, int numer_row)
+{
+	T** buffer = new T * [rows -1]{};
+	for (int i = 0; i < numer_row; i++)
+	{
+		buffer[i] = arr[i];
+	}
+	for (int i = (numer_row + 1); i < rows; i++)
+	{
+		buffer[i-1] = arr[i];
+	}
+	delete[] arr;
+	rows--;
+	arr = buffer;
 	return arr;
 }
